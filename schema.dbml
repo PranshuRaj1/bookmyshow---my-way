@@ -1,0 +1,96 @@
+Table cinemas {
+  cinema_id integer [pk]
+  name varchar
+  city varchar
+}
+
+Table screens {
+  screen_id integer [pk]
+  cinema_id integer [ref: > cinemas.cinema_id]
+  name varchar // "Hall 1"
+}
+
+Table shows {
+  show_id integer [primary key]
+  movie_id integer [ref: > movies.movie_id]
+  screen_id integer [ref: > screens.screen_id]
+  start_time timestamp
+}
+
+Table users {
+  id integer [primary key]
+  username varchar
+  created_at timestamp
+}
+
+Table movies {
+  movie_id integer [primary key]
+  movie_name varchar
+  movie_description varchar
+  movie_duration integer // store in minutes
+}
+
+Table seats {
+  seat_id integer [primary key]
+  row varchar
+  column integer
+  screen_id integer [ref: > screens.screen_id]
+  tier_variant tier_variant 
+}
+
+Table show_seat {
+  show_seat_id integer [pk]
+  seat_id integer [ref: > seats.seat_id]
+  show_id integer [ref: > shows.show_id]
+  status Status
+  locked_at timestamp
+  lock_expires_at timestamp
+  price decimal
+  booking_id integer [ref: > bookings.booking_id, null]
+
+  indexes {
+    (show_id, seat_id) [UNIQUE]
+  }
+}
+
+Table bookings {
+  booking_id integer [pk]
+  user_id integer [ref: > users.id]
+  show_id integer [ref: > shows.show_id]
+  status BookingStatus
+  created_at timestamp
+}
+
+Table payments {
+  payment_id integer [pk]
+  booking_id integer [ref: > bookings.booking_id, null]
+  amount decimal
+  status payment_status
+  provider_reference varchar
+  created_at timestamp
+}
+
+Enum Status {
+  Unlocked
+  Locked
+  Booked
+}
+
+Enum BookingStatus {
+  Created
+  Confirmed
+  Expired
+  Cancelled
+}
+
+Enum payment_status {
+  Pending
+  Success
+  Failed
+}
+
+Enum tier_variant {
+  VIP
+  Premium
+  Regular
+}
