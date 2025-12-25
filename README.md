@@ -2,6 +2,8 @@
 
 > I learned about database design from Caleb's playlist and took this as a project to showcase my skills. I will be creating a BookMyShow-type application using **Next.js** and **Golang** (which I will learn and implement).
 
+Caleb's playlist: https://www.youtube.com/watch?v=h0j0QN2b57M&list=PL_c9BZzLwBRK0Pc28IdvPQizD2mJlgoID
+
 This project demonstrates a robust database design for a cinema booking system. Rather than just a table overview, this documentation explains the **feature map**—what real-world capabilities this design enables and why they matter.
 
 ---
@@ -253,3 +255,9 @@ Your design ensures:
 
 * correctness first
 * optimization later
+
+
+
+NOTE: This is my deduction as of now, and I will be updating this as I learn more.
+
+
