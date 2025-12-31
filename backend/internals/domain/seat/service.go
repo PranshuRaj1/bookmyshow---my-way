@@ -2,7 +2,7 @@ package seat
 
 import (
 	"errors"
-	"sort"
+	"slices"
 	"time"
 )
 
@@ -46,9 +46,7 @@ func (s *Service) LockSeatsForBooking(
 	}
 
 	// Canonical ordering (deadlock prevention)
-	sort.Slice(seatIDs, func(i, j int) bool {
-		return seatIDs[i] < seatIDs[j]
-	})
+	slices.Sort(seatIDs)
 
 	lockUntil := now.Add(lockDuration)
 
